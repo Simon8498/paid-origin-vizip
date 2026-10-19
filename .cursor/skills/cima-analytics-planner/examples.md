@@ -34,7 +34,28 @@ User: `为什么 FY2026 OC 的 attendance 会掉？`
 }
 ```
 
-## 3. Monthly · OC Family
+## 3. Monthly · OC all famnon (FY26 vs FY25 worst FM)
+
+User: `帮我看一下OC在FY26哪个月相比FY25掉的最厉害`
+
+```json
+{
+  "summary": "Other China FY2026 vs FY2025 财月 PAID ATTN 最大跌幅",
+  "quality": { "score": 0.9, "notes": "未指定 famnon，OC 全量" },
+  "metric": "paid_allocated_attn",
+  "filters": { "fy_old": 2025, "fy_new": 2026, "region5": "Other China" },
+  "dimensions": ["fm"],
+  "analysis_type": "monthly",
+  "output": {
+    "monthly_primary_sort": "delta_asc",
+    "monthly_show_fm_calendar": true
+  },
+  "steps": [],
+  "narrative_focus": ["Rank#1 财月", "绝对量 vs 百分比最大跌幅"]
+}
+```
+
+## 4. Monthly · OC Family
 
 User: `OC Family 哪个月掉得最多？`
 
@@ -56,7 +77,24 @@ User: `OC Family 哪个月掉得最多？`
 }
 ```
 
-## 4. Latest week
+## 5. YTD · region5 × famnon · subtotals
+
+User: `按region5 famnon拆分FY27 YTD attendance，需要小计和总计`
+
+```json
+{
+  "summary": "FY2027 YTD 按 region5、famnon 汇总 PAID 分配 ATTN，含区域小计与总计",
+  "quality": { "score": 0.92, "notes": "" },
+  "metric": "paid_allocated_attn",
+  "filters": { "fy": 2027 },
+  "dimensions": ["region5", "famnon"],
+  "analysis_type": "ytd",
+  "steps": [],
+  "narrative_focus": ["YTD 截止财周", "region 小计", "Grand Total"]
+}
+```
+
+## 6. Latest week
 
 User: `看一下最近一周的表现`
 
@@ -73,7 +111,7 @@ User: `看一下最近一周的表现`
 }
 ```
 
-## 5. OC Family · group YoY
+## 6. OC Family · group YoY
 
 User: `FY2026 OC Family 各 life stage 同比`
 
@@ -95,7 +133,7 @@ User: `FY2026 OC Family 各 life stage 同比`
 }
 ```
 
-## 6. Adhoc · sample counts
+## 7. Adhoc · sample counts
 
 User: `FY2025 FY2026 OC Family 各 group 样本量`
 

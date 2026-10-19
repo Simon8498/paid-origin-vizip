@@ -35,6 +35,7 @@ See `plan-schema.json`. Required fields:
 | `analysis_type` | See `reference.md` |
 | `steps` | Optional; only for `adhoc` or extra tools |
 | `narrative_focus` | Bullets for local reply synthesis |
+| `output` | Optional; see `reference.md` (`monthly_primary_sort`, etc.) |
 
 ## Decision rules
 
@@ -44,8 +45,10 @@ See `plan-schema.json`. Required fields:
 4. **Region aliases** — OC/其他中国 → `Other China`; NP/邻近 → `Neighboring Provinces`; SH/上海 → `Shanghai`; GC → `Greater China`; Intl → `International`.
 5. **Family** — 家庭/Family vs Non-Family/非家庭 in `filters.famnon`.
 6. **Life stage** — 生命周期/人群/group → `dimensions`: `["group"]` when region+famnon are fixed.
-7. **最近一周 / 财周 / 环比** → `analysis_type`: `latest_week` (or `wow` if user compares two weeks explicitly).
+7. **YTD / 小计 / 总计** + single FY (e.g. FY27) → `analysis_type`: `ytd`, `filters`: `{ "fy": 2027 }`, `dimensions`: `["region5","famnon"]`, **empty `steps`** (do not use run_python imports).
+8. **最近一周 / 财周 / 环比** → `analysis_type`: `latest_week` (or `wow` if user compares two weeks explicitly).
 8. **为什么 / 哪个月** → `why` or `monthly`; require `filters.region5` when question is region-specific.
+9. **OC 哪个月掉** without Family → omit `filters.famnon`; set `output.monthly_primary_sort`: `delta_asc`, `output.monthly_show_fm_calendar`: true.
 
 ## Local tools (for `steps` only)
 
