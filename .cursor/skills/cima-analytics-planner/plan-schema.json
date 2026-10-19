@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "CimaAnalyticsPlan",
+  "type": "object",
+  "required": ["summary", "quality", "metric", "filters", "dimensions", "analysis_type", "steps", "narrative_focus"],
+  "properties": {
+    "summary": { "type": "string" },
+    "quality": {
+      "type": "object",
+      "required": ["score", "notes"],
+      "properties": {
+        "score": { "type": "number", "minimum": 0, "maximum": 1 },
+        "notes": { "type": "string" }
+      }
+    },
+    "metric": {
+      "type": "string",
+      "enum": ["paid_allocated_attn", "survey_sample", "other"]
+    },
+    "filters": {
+      "type": "object",
+      "properties": {
+        "fy_old": { "type": "integer" },
+        "fy_new": { "type": "integer" },
+        "region5": { "type": "string" },
+        "famnon": { "type": "string", "enum": ["Family", "Non-Family"] }
+      }
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "string",
+        "enum": ["region5", "famnon", "group", "fm", "fw"]
+      }
+    },
+    "analysis_type": {
+      "type": "string",
+      "enum": ["yoy", "why", "monthly", "latest_week", "wow", "adhoc"]
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["tool", "arguments"],
+        "properties": {
+          "tool": {
+            "type": "string",
+            "enum": ["run_sql", "run_python", "get_reference", "test_db_connection", "get_schema"]
+          },
+          "arguments": { "type": "object" }
+        }
+      }
+    },
+    "narrative_focus": {
+      "type": "array",
+      "items": { "type": "string" }
+    }
+  }
+}
